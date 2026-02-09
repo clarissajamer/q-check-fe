@@ -1,0 +1,6 @@
+[error] Target of URI doesn't exist: 'package:shared_preferences/shared_preferences.dart' (e:\dafarina salsabila\q_check\lib\services\api_service.dart:2:8)
+[error] Undefined name 'SharedPreferences' (e:\dafarina salsabila\q_check\lib\services\api_service.dart:21:25)
+[error] Undefined name 'SharedPreferences' (e:\dafarina salsabila\q_check\lib\services\api_service.dart:27:25)
+[error] Undefined name 'SharedPreferences' (e:\dafarina salsabila\q_check\lib\services\api_service.dart:33:25)
+[warning] The value of the field '_token' isn't used (e:\dafarina salsabila\q_check\lib\services\api_service.dart:15:11)
+[info] The imported package 'shared_preferences' isn't a dependency of the importing package (e:\dafarina salsabila\q_check\lib\services\api_service.dart:2:8)
