@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:q_check/content/scan_qr_conjtent.dart';
+
+const Color grennD = Color.fromARGB(255, 0, 0, 0);
+const Color greenL = Color.fromARGB(255, 51, 91, 7);
 
 class ScanQrPage extends StatefulWidget {
   const ScanQrPage({super.key});
@@ -9,6 +13,7 @@ class ScanQrPage extends StatefulWidget {
 }
 
 class _ScanQrPageState extends State<ScanQrPage> {
+  final double _customAppBarHeight = 65.0;
   final MobileScannerController _controller = MobileScannerController();
   bool _hasScanned = false;
 
@@ -18,72 +23,72 @@ class _ScanQrPageState extends State<ScanQrPage> {
     super.dispose();
   }
 
+  void _onQrScanned(String code) {
+    if (_hasScanned) return;
+    _hasScanned = true;
+
+    Navigator.pop(context, code);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: AppBar(
-        title: const Text('Scan QR'),
-        backgroundColor: Colors.black,
-        foregroundColor: Colors.white,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.flash_on),
-            onPressed: () {
-              _controller.toggleTorch();
-            },
+      body: Stack(
+        children: [
+          // Background
+          Positioned.fill(
+            child: Image.asset('images/bg1.png', fit: BoxFit.cover),
           ),
-          IconButton(
-            icon: const Icon(Icons.cameraswitch),
-            onPressed: () {
-              _controller.switchCamera();
-            },
+
+          Column(
+            children: [
+              _buildAppBar(context, _customAppBarHeight),
+
+              ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(25),
+                  bottomRight: Radius.circular(25),
+                ),
+                child: Container(height: 12, width: 350, color: grennD),
+              ),
+
+              Expanded(
+                child: ScanQrContent(
+                  controller: _controller,
+                  onScanned: _onQrScanned,
+                ),
+              ),
+            ],
           ),
         ],
       ),
-      body: Stack(
-        children: [
-          MobileScanner(
-            controller: _controller,
-            onDetect: (capture) {
-              if (_hasScanned) return;
+    );
+  }
 
-              final barcode = capture.barcodes.first;
-              final String? code = barcode.rawValue;
-
-              if (code == null) return;
-
-              _hasScanned = true;
-
-              // KIRIM HASIL KE HALAMAN SEBELUMNYA
-              Navigator.pop(context, code);
-            },
-          ),
-
-          // Overlay kotak scan (UI, opsional tapi profesional)
-          Center(
-            child: Container(
-              width: 260,
-              height: 260,
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.white, width: 2),
-                borderRadius: BorderRadius.circular(12),
-              ),
+  PreferredSizeWidget _buildAppBar(BuildContext context, double height) {
+    return PreferredSize(
+      preferredSize: Size.fromHeight(height),
+      child: ClipRRect(
+        borderRadius: const BorderRadius.only(
+          bottomLeft: Radius.circular(25),
+          bottomRight: Radius.circular(25),
+        ),
+        child: AppBar(
+          backgroundColor: greenL,
+          centerTitle: true,
+          title: const Text(
+            'Scan QR',
+            style: TextStyle(
+              fontSize: 26,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
             ),
           ),
-
-          // Instruksi
-          const Positioned(
-            bottom: 40,
-            left: 0,
-            right: 0,
-            child: Text(
-              'Arahkan QR ke dalam kotak',
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white, fontSize: 16),
-            ),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+            onPressed: () => Navigator.pop(context),
           ),
-        ],
+        ),
       ),
     );
   }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:q_check/content/about_app_content.dart';
 
-const Color grennD = Color.fromARGB(255, 0, 0, 0);
-const Color greenL = Color.fromARGB(255, 51, 91, 7);
+const Color grennD = Color.fromARGB(255, 6, 43, 15);
+const Color greenL = Color.fromARGB(255, 63, 114, 9);
 
 class AboutAppPage extends StatelessWidget {
   const AboutAppPage({super.key});

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:q_check/page/permission_page.dart';
 
 class HomeContent extends StatelessWidget {
   const HomeContent({super.key});
@@ -179,23 +180,33 @@ class HomeContent extends StatelessWidget {
                     const SizedBox(width: 12),
                     _buildInputBox("ijin"),
                     const SizedBox(width: 12),
-                    Container(
-                      height: 40,
-                      width: 40,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.1),
-                            blurRadius: 4,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PermissionPage(),
                           ),
-                        ],
-                      ),
-                      child: const Icon(
-                        Icons.send,
-                        color: primaryColor,
-                        size: 20,
+                        );
+                      },
+                      child: Container(
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 226, 242, 226),
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              blurRadius: 4,
+                            ),
+                          ],
+                        ),
+                        child: const Icon(
+                          Icons.send,
+                          color: Color.fromARGB(255, 45, 76, 15),
+                          size: 20,
+                        ),
                       ),
                     ),
                   ],
